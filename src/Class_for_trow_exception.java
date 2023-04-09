@@ -30,7 +30,7 @@ public class Class_for_trow_exception <T extends Integer> {
 	private Logger logger;
 
 	public static int readLocalFile(String path) throws FileNotFoundException,NumberFormatException {
-		try (Scanner scanner = new Scanner(new File(path))) {
+		try (Scanner scanner = new Scanner(new File(path))) { //если файл отсутствует или в нем не валидные данные для текущей задачи, мы поймаес учключения и прекратим работу программы
 			return Integer.parseInt(scanner.nextLine());
 		} catch (FileNotFoundException notFoundException) {
 			throw new IllegalArgumentException("File not found");
@@ -42,7 +42,7 @@ public class Class_for_trow_exception <T extends Integer> {
 	
 	
 	public void addList(T one) throws NullPointerException {
-		try {
+		try { //отлавливаем случай добавления в не инициализированный список
 			this.list.add(one);
 		} catch (NullPointerException nullPointerException) {
 			throw new IllegalArgumentException("Список не инициализирован");
@@ -50,14 +50,14 @@ public class Class_for_trow_exception <T extends Integer> {
 	}
 	
 	public double divNumbers(int a, int b) throws ArithmeticException {
-		try {
+		try {  // если делитель равен 0, ничего не вылетит, но пользователь будет осведомлен о нарушении
 			return a / b;
 		} catch (ArithmeticException zero) {
 			System.out.println("На ноль делить нельзя !");
 			Logger logger = Logger.getAnonymousLogger();
 			logger.info("Пользователь пробует нарушить математические правила.");
 		}
-		return 0;
+		return 0; // вообще для подобных алгоритмов не принято возвращать коды ошибок, поэтому здесь возвращается не код, а просто значение 0, после осведомления о невозможности предыдущей операции.
 	}
 
 
